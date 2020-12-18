@@ -1,30 +1,34 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-export const Title = styled.Text`
-    font-size: 16px;
-    font-weight: bold;
-    color: #444;
-`;
-
-export const Container = styled.View`
-    flex: 1;
-    padding: 20px 20px;
-    background: #FFF;
-    border-radius: 6px;
-    margin: 0px 20px 10px 20px;
-`;
-
-export const List = styled.FlatList.attrs({
-    showsVerticalScrollIndicator: false,
-})`
-    margin-top: 20px;
-`;
-
-export const BotaoSaldo = styled.TouchableOpacity`
-    background: #a2faca;
-    margin-top: 10px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    padding: 6px 0;
-`;
+export const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 6,
+        marginRight: 20,
+        marginBottom: 10,
+        marginLeft: 20,
+    },
+    title: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#444',
+    },
+    list: {
+        marginTop: 20,
+    },
+    btnSaldo: {
+        backgroundColor: '#a2faca',
+        marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 4,
+        paddingTop: 6,
+        paddingBottom: 6,
+    },
+    textoSaldo: {
+      color: '#1e661b',
+      fontWeight: 'bold'
+    },
+});

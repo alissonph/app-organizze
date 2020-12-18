@@ -1,13 +1,14 @@
 import React from 'react';
-import { Container, Title, List, BotaoSaldo } from './styles';
+import { styles } from './styles';
 import Conta from '../../components/Conta';
-import { StyleSheet, Text } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 
 export default function Contas() {
     return (
-        <Container>
-            <Title>Meus Saldos</Title>
-            <List
+        <View style={styles.container}>
+            <Text style={styles.title}>Meus Saldos</Text>
+            <FlatList style={styles.list}
+                showsVerticalScrollIndicator={false}
                 keyboardShouldPersistTaps="handled"
                 data={[
                     { 
@@ -37,16 +38,10 @@ export default function Contas() {
                     <Conta data={item}></Conta>
                 )}
             />
-            <BotaoSaldo>
+            <TouchableOpacity style={styles.btnSaldo}>
                 <Text style={styles.textoSaldo}>Ajustar Saldo</Text>
-            </BotaoSaldo>
-        </Container>
+            </TouchableOpacity>
+        </View>
     );
 }
 
-const styles = StyleSheet.create({
-    textoSaldo: {
-      color: '#1e661b',
-      fontWeight: 'bold'
-    },
-});

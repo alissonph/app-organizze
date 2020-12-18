@@ -1,17 +1,17 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { Container, ContainerTitulo, Name, Description, Saldo } from './styles';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { styles } from './styles';
 
 export default function Conta({ data }) {
     return (
         <TouchableOpacity>
-            <Container>
-                <ContainerTitulo>
-                    <Name>{data?.nome}</Name>
-                    <Description>{data?.tipo}</Description>
-                </ContainerTitulo>
-                <Saldo>{data?.saldo}</Saldo>
-            </Container>
+            <View style={styles.container}>
+                <View>
+                    <Text style={styles.name}>{data?.nome}</Text>
+                    <Text style={styles.description}>{data?.tipo}</Text>
+                </View>
+                <Text style={styles.saldo}>{data?.saldo}</Text>
+            </View>
         </TouchableOpacity>
     );
 }

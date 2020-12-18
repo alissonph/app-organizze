@@ -1,26 +1,21 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-export const Container = styled.SafeAreaView`
-    flex: 1;
-    background: #34eb86;
-`;
-
-export const Header = styled.View`
-    flex-direction: column;
-    padding: 30px 20px 20px 20px;
-`;
-
-export const Title = styled.Text`
-    font-size: 14px;
-    color: white;
-`;
-
-export const SubTitle = styled.Text`
-    font-size: 23px;
-    color: white;
-    font-weight: bold;
-`;
-
-export const Form = styled.View`
-    margin-top: 20px;
-`;
+export const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#34eb86',
+    },
+    header: {
+      flexDirection: 'column',
+      padding: 20,
+    },
+    title: {
+      fontSize: 14,
+      color: 'white',
+    },
+    subTitle: {
+      fontSize: 23,
+      color: 'white',
+      fontWeight: 'bold'
+    }
+});

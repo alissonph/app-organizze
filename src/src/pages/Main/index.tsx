@@ -1,23 +1,22 @@
 import React from 'react';
-import { ScrollView, StatusBar } from 'react-native';
-import { Container, Header, Title, SubTitle, Form } from './styles';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { styles } from './styles';
 import Contas from '../../components/Contas';
 
 export default function App() {
   return (
-    <Container>
+    <SafeAreaView style={styles.container}>
         <ScrollView>
-          <Header>
-            <Title>Boa noite,</Title>
-            <SubTitle>Alisson!</SubTitle>
-          </Header>
-          <Form>
+          <View style={styles.header}>
+            <Text style={styles.title}>Boa noite,</Text>
+            <Text style={styles.subTitle}>Alisson!</Text>
+          </View>
+          <View>
             <Contas/>
-            <Contas/>
-          </Form>
- 
+          </View>
         </ScrollView>
         <StatusBar />
-    </Container>
+    </SafeAreaView>
   );
 }
+
