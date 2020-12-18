@@ -1,15 +1,23 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { Container, Title, Form } from './styles';
+import { ScrollView, StatusBar } from 'react-native';
+import { Container, Header, Title, SubTitle, Form } from './styles';
 import Contas from '../../components/Contas';
 
 export default function App() {
   return (
     <Container>
-        <Title>Financeiro</Title>
-        <Form>
-            <Contas />
-        </Form>
+        <ScrollView>
+          <Header>
+            <Title>Boa noite,</Title>
+            <SubTitle>Alisson!</SubTitle>
+          </Header>
+          <Form>
+            <Contas/>
+            <Contas/>
+          </Form>
+ 
+        </ScrollView>
+        <StatusBar />
     </Container>
   );
 }
