@@ -10,6 +10,11 @@ export const styles = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 20,
     },
+    containerTitle: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
     title: {
         fontSize: 16,
         fontWeight: 'bold',
