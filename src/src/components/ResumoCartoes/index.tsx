@@ -15,7 +15,8 @@ export default function ResumoCartoes() {
                 </TouchableOpacity>
             </View>
             <FlatList style={styles.list}
-                showsVerticalScrollIndicator={false}
+                showsVerticalScrollIndicator ={false}
+                showsHorizontalScrollIndicator={false}
                 keyboardShouldPersistTaps="handled"
                 data={[
                     { 

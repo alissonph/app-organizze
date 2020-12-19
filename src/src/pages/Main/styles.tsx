@@ -24,5 +24,16 @@ export const styles = StyleSheet.create({
       fontSize: 23,
       color: 'white',
       fontWeight: 'bold'
-    }
+    },
+    floatAddButton: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 60,
+      height: 60,
+      position: 'absolute',                                          
+      bottom: 10,                                                    
+      right: 10,
+      backgroundColor:'#2d7a1a',
+      borderRadius:100,
+    },
 });

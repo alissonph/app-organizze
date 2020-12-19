@@ -5,6 +5,20 @@ export const styles = StyleSheet.create({
         paddingBottom: 10,
         margin: 0,
     },
+    containerTitle: {
+        flexDirection: 'row',
+    },
+    viewCardIcon:{
+        marginRight: 10,
+        backgroundColor: '#CCC',
+        color: '#FFF',
+        borderRadius: 100,
+        width: 32,
+        height: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+    },
     company:{
         fontSize: 13,
     },
@@ -13,10 +27,10 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     containerValues: {
-        paddingLeft: 50,
+        paddingLeft: 42,
         width: '90%',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     fatura:{
         color: 'red',

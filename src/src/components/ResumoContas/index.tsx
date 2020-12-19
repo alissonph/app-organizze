@@ -16,7 +16,8 @@ export default function ResumoContas() {
                 </TouchableOpacity>
             </View>
             <FlatList style={styles.list}
-                showsVerticalScrollIndicator={false}
+                showsVerticalScrollIndicator ={false}
+                showsHorizontalScrollIndicator={false}
                 keyboardShouldPersistTaps="handled"
                 data={[
                     { 

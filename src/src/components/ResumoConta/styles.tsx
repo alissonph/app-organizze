@@ -7,6 +7,20 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingBottom: 10,
     },
+    containerTitle: {
+        flexDirection: 'row',
+    },
+    viewBankIcon:{
+        marginRight: 10,
+        backgroundColor: '#CCC',
+        color: '#FFF',
+        borderRadius: 100,
+        width: 32,
+        height: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+    },
     name:{
         fontSize: 14,
         fontWeight: 'bold'
