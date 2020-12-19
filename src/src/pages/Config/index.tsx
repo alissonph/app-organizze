@@ -9,7 +9,9 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 export default function Config({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Config</Text>
+      <View style={styles.containerHeader}>
+        <Text style={styles.title}>Configurações</Text>
+      </View>
     </SafeAreaView>
   );
 }

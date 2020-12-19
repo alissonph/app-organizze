@@ -13,16 +13,9 @@ export const styles = StyleSheet.create({
       padding: 20,
       alignItems: 'center'
     },
-    containerWelcome: {
-      flexDirection: 'column',
-    },
     title: {
-      fontSize: 14,
-      color: 'white',
-    },
-    subTitle: {
       fontSize: 23,
       color: 'white',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     }
 });
