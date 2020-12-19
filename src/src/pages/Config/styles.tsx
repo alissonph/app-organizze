@@ -9,9 +9,11 @@ export const styles = StyleSheet.create({
     },
     containerHeader: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
       padding: 20,
       alignItems: 'center'
+    },
+    btnVoltar: {
+      marginRight: 10,
     },
     title: {
       fontSize: 23,
