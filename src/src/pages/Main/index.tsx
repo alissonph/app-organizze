@@ -6,8 +6,7 @@ import ResumoCartoes from '../../components/ResumoCartoes';
 
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 
-
-export default function App() {
+export default function Main({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView>
@@ -16,7 +15,7 @@ export default function App() {
               <Text style={styles.title}>Boa noite,</Text>
               <Text style={styles.subTitle}>Alisson!</Text>
             </View>
-            <TouchableOpacity hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}>
+            <TouchableOpacity onPress={() => navigation.navigate("Config")} hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}>
               <Icon name="settings" size={25} color="#FFF" />
             </TouchableOpacity>
           </View>
