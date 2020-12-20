@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { styles } from './styles';
-import ResumoConta from '../ResumoConta';
-import { Button, FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import ResumoConta from './ResumoConta';
 
 //eye-off e eye-outline
 export default function ResumoContas() {
@@ -54,3 +55,40 @@ export default function ResumoContas() {
     );
 }
 
+export const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 6,
+        marginRight: 20,
+        marginBottom: 10,
+        marginLeft: 20,
+    },
+    containerTitle: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    title: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#444',
+    },
+    list: {
+        marginTop: 20,
+    },
+    btnSaldo: {
+        backgroundColor: '#a2faca',
+        marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 4,
+        paddingTop: 6,
+        paddingBottom: 6,
+    },
+    textoSaldo: {
+      color: '#1e661b',
+      fontWeight: 'bold'
+    },
+});
