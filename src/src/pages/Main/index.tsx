@@ -57,9 +57,9 @@ export default function Main({ navigation }) {
           </View>
 
         </ScrollView>
-          <TouchableOpacity style={styles.floatAddButton} onPress={() => navigation.navigate("NovoLancamento")}>
-            <Icon name="plus-thick" size={30} color="#FFF" />
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.floatAddButton} onPress={() => navigation.navigate("NovoLancamento")}>
+          <Icon name="plus-thick" size={30} color="#FFF" />
+        </TouchableOpacity>
         <StatusBar backgroundColor="transparent" translucent/>
     </SafeAreaView>
   );

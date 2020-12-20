@@ -1,11 +1,23 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export default function Config({ navigation }) {
+
+  const confirmLogout = () => {
+    Alert.alert(
+      "Confirmar Logout",
+      "Deseja realmente sair?",
+      [
+        { text: "Não"},
+        { text: "Sim" , onPress: () => navigation.navigate("MainTabs") }
+      ]
+    );
+  }
+
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
@@ -51,7 +63,7 @@ export default function Config({ navigation }) {
             <Text>Avalie</Text>
             <Text>></Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.option}>
+          <TouchableOpacity style={styles.option} onPress={confirmLogout}>
             <Text>Sair</Text>
             <Text></Text>
           </TouchableOpacity>
