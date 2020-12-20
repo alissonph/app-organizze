@@ -22,12 +22,11 @@ export const styles = StyleSheet.create({
     },
     containerContent: {
       flex: 1,
-      backgroundColor: '#EEE',
+      backgroundColor: '#FFF',
     },
     containerValue: (option?:object) => ({
       height: 90,
       backgroundColor: (option == "Despesa" ? 'red' : (option == "Receita" ? '#34eb86' : '#999')),
-      //alignItems: 'flex-end',
       paddingHorizontal: 20,
     }),
     inputValue: {
@@ -43,16 +42,20 @@ export const styles = StyleSheet.create({
     textOption: {
       color: '#FFF',
     },
-    containerInput: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    containerFields: {
+    containerOption: {
+      paddingVertical: 10,
       paddingLeft: 20,
+      backgroundColor: "#FFF",
+      borderBottomWidth: 0.5,
+      borderBottomColor: "#EEE",
     },
     titleField: {
       fontSize: 12,
-      paddingTop: 10,
+      paddingBottom: 5,
+    },
+    containerInput: {
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     inputField: {
       paddingLeft: 10,

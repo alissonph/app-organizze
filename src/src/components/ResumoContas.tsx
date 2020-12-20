@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,6 +8,34 @@ import ResumoConta from './ResumoConta';
 //eye-off e eye-outline
 export default function ResumoContas() {
     const [isBalanceHidden, setBalanceHidden] = useState(false);
+    const [accounts, setAccounts] = useState([]);
+
+    useEffect(() => {
+        setAccounts([
+            { 
+                id: 1,
+                nome: 'Nuconta',
+                tipo: 'Conta Corrente',
+                icone: '',
+                saldo : 9123.32,
+            },
+            { 
+                id: 2,
+                nome: 'Bradesco',
+                tipo: 'Conta Poupança',
+                icone: '',
+                saldo : 117234,
+            },
+            { 
+                id: 3,
+                nome: 'Easyinvest',
+                tipo: 'Investimentos',
+                icone: '',
+                saldo : 557432.7,
+            }
+        ]);
+    }, []);
+
     return (
         <View style={styles.container}>
             <View style={styles.containerTitle}>
@@ -16,38 +44,15 @@ export default function ResumoContas() {
                     <Icon name={isBalanceHidden ? 'eye-outline' : 'eye-off'} size={25} color="#999" />
                 </TouchableOpacity>
             </View>
-            <FlatList style={styles.list}
-                showsVerticalScrollIndicator ={false}
-                showsHorizontalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-                data={[
-                    { 
-                        id: 1,
-                        nome: 'Nuconta',
-                        tipo: 'Conta Corrente',
-                        icone: '',
-                        saldo : 9123.32,
-                    },
-                    { 
-                        id: 2,
-                        nome: 'Bradesco',
-                        tipo: 'Conta Poupança',
-                        icone: '',
-                        saldo : 117234,
-                    },
-                    { 
-                        id: 3,
-                        nome: 'Easyinvest',
-                        tipo: 'Investimentos',
-                        icone: '',
-                        saldo : 557432.7,
-                    }
-                ]}
-                keyExtractor={item => String(item.id)}
-                renderItem={({ item }) => (
-                    <ResumoConta data={item} isBalanceHidden={isBalanceHidden}></ResumoConta>
-                )}
-            />
+
+            <View style={styles.list}>
+                {
+                    accounts.map((item) => {
+                        return <ResumoConta key={item.id} data={item} isBalanceHidden={isBalanceHidden} />
+                    })
+                }
+            </View>
+            
             <TouchableOpacity style={styles.btnSaldo}>
                 <Text style={styles.textoSaldo}>Ajustar Saldo</Text>
             </TouchableOpacity>

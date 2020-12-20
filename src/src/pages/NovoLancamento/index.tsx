@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import { styles } from './styles';
 
@@ -31,6 +31,7 @@ export default function NovoLancamento({ navigation }) {
             }}
             onChangeText={text => {
               setValue(text);
+              console.log(text);
             }}
           style={styles.inputValue} keyboardType="numeric" />
           <View style={styles.containerOptions}>
@@ -46,13 +47,34 @@ export default function NovoLancamento({ navigation }) {
           </View>
         </View>
 
-        <View style={styles.containerFields}>
-          <Text style={styles.titleField}>Descrição</Text>
-          <View style={styles.containerInput}>
-            <MaterialIcons name="edit" size={20} color="#000" />
-            <TextInput style={styles.inputField} placeholder="Adicione a descrição" onChangeText={text => setDescription(text)} value={description}/>
+        <View>
+          <View style={styles.containerOption}>
+            <Text style={styles.titleField}>Descrição</Text>
+            <View style={styles.containerInput}>
+              <MaterialIcons name="edit" size={20} color="#000" />
+              <TextInput style={styles.inputField} placeholder="Adicione a descrição" onChangeText={text => setDescription(text)} value={description}/>
+            </View>
+          </View>
+          <View style={styles.containerOption}>
+            <TouchableOpacity>
+              <Text style={styles.titleField}>Categoria</Text>
+              <View style={styles.containerInput}>
+                <Icon name="format-list-bulleted" size={20} color="#000" />
+                <Text style={styles.inputField}>Outros</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.containerOption}>
+            <TouchableOpacity>
+              <Text style={styles.titleField}>Pagar com</Text>
+              <View style={styles.containerInput}>
+                <Icon name="bank" size={20} color="#000" />
+                <Text style={styles.inputField}>Nuconta</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
+
       </View>
       <TouchableOpacity style={styles.floatSaveButton} onPress={() => navigation.navigate("NovoLancamento")}>
         <Icon name="check" size={30} color="#FFF" />
