@@ -1,12 +1,14 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { floatToMoney } from '../Utils';
 
 export default function ResumoConta({ data, isBalanceHidden }) {
+    const navigation = useNavigation();
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Lancamentos", {conta : data})}>
             <View style={styles.container}>
                 <View style={styles.containerTitle}>
                     <View style={styles.viewBankIcon}>
