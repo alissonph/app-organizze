@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,6 +12,11 @@ export default function NovoLancamento({ navigation }) {
           <Icon name="keyboard-backspace" size={25} color="#FFF" />
         </TouchableOpacity>
         <Text style={styles.title}>Novo Lançamento</Text>
+      </View>
+      <View style={styles.containerContent}>
+        <View style={styles.containerValue}>
+          <TextInput style={styles.inputValue} keyboardType="numeric" placeholder="0,00"></TextInput>
+        </View>
       </View>
     </SafeAreaView>
   );

@@ -20,4 +20,17 @@ export const styles = StyleSheet.create({
     btnVoltar: {
       marginRight: 10,
     },
+    containerContent: {
+      flex: 1,
+      backgroundColor: '#EEE',
+    },
+    containerValue: {
+      height: 50,
+      backgroundColor: '#34eb86',
+      alignItems: 'flex-end',
+      paddingHorizontal: 20,
+    },
+    inputValue: {
+      fontSize: 30,
+    }
 });

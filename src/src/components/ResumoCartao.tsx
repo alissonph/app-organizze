@@ -34,8 +34,10 @@ export default function ResumoCartao({ data }) {
 
 export const styles = StyleSheet.create({
     container: {
-        paddingBottom: 10,
+        paddingVertical: 10,
         margin: 0,
+        borderBottomWidth: 0.5,
+        borderBottomColor: "#EEE",
     },
     containerTitle: {
         flexDirection: 'row',

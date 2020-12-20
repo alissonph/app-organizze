@@ -19,5 +19,25 @@ export const styles = StyleSheet.create({
       fontSize: 23,
       color: 'white',
       fontWeight: 'bold',
+    },
+    containerContent: {
+      flex: 1,
+      backgroundColor: '#EEE',
+    },
+    titleOption: {
+      fontSize: 15,
+      fontWeight: 'bold',
+      paddingTop: 20,
+      paddingLeft: 10,
+      paddingBottom: 10,
+    },
+    option: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      backgroundColor: "#FFF",
+      paddingHorizontal: 10,
+      paddingVertical: 15,
+      borderBottomWidth: 0.5,
+      borderBottomColor: "#EEE",
     }
 });

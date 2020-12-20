@@ -29,7 +29,9 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
-        paddingBottom: 10,
+        paddingVertical: 10,
+        borderBottomWidth: 0.5,
+        borderBottomColor: "#EEE",
     },
     containerTitle: {
         flexDirection: 'row',
