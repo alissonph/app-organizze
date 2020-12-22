@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
-import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { ActivityIndicator, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import { styles } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+const wait = timeout => {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+};
+
 export default function NovoLancamento({ navigation }) {
-  let [value, setValue] = useState(0);
-  let [option, setOption] = useState("Despesa");
-  let [description, setDescription] = useState("");
+  const [value, setValue] = useState(0);
+  const [option, setOption] = useState("Despesa");
+  const [description, setDescription] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const onSave = useCallback(() => {
+    setSaving(true);
+
+    wait(2000).then(() => setSaving(false));
+  }, []);
 
   return (
-    <SafeAreaView style={styles.container(option)}>
+    <SafeAreaView style={{backgroundColor: (option == "Despesa" ? 'red' : (option == "Receita" ? '#34eb86' : '#999')), ...styles.container}}>
       <View style={styles.containerHeader}>
         <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.goBack()} hitSlop={{top: 10, left: 15, bottom: 15, right: 15}}>
           <Icon name="keyboard-backspace" size={25} color="#FFF" />
@@ -20,7 +33,7 @@ export default function NovoLancamento({ navigation }) {
         <Text style={styles.title}>Novo Lançamento</Text>
       </View>   
       <View style={styles.containerContent}>
-        <View style={styles.containerValue(option)}>
+        <View style={{ backgroundColor: (option == "Despesa" ? 'red' : (option == "Receita" ? '#34eb86' : '#999')), ...styles.containerValue}}>
           <TextInputMask type="money" 
             value={value}
             options={{
@@ -76,8 +89,9 @@ export default function NovoLancamento({ navigation }) {
         </View>
 
       </View>
-      <TouchableOpacity style={styles.floatSaveButton} onPress={() => navigation.navigate("NovoLancamento")}>
-        <Icon name="check" size={30} color="#FFF" />
+      <TouchableOpacity style={styles.floatSaveButton} onPress={onSave}>
+        {saving && <ActivityIndicator size="large" color="#FFF" /> }
+        {!saving && <Icon name="check" size={35} color="#FFF" /> }
       </TouchableOpacity>
     </SafeAreaView>
   );

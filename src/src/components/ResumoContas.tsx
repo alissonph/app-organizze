@@ -1,39 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import api from '../services/api';
 import ResumoConta from './ResumoConta';
 
 //eye-off e eye-outline
 export default function ResumoContas() {
     const [isBalanceHidden, setBalanceHidden] = useState(false);
+    const [loadingAccounts, setLoadingAccounts] = useState(false);
     const [accounts, setAccounts] = useState([]);
 
-    useEffect(() => {
-        setAccounts([
-            { 
-                id: 1,
-                nome: 'Nuconta',
-                tipo: 'Conta Corrente',
-                icone: '',
-                saldo : 9123.32,
-            },
-            { 
-                id: 2,
-                nome: 'Bradesco',
-                tipo: 'Conta Poupança',
-                icone: '',
-                saldo : 117234,
-            },
-            { 
-                id: 3,
-                nome: 'Easyinvest',
-                tipo: 'Investimentos',
-                icone: '',
-                saldo : 557432.7,
+    const loadAccounts = async () => {
+        setLoadingAccounts(true);
+        try {
+            let response = await api.get('/accounts');
+            if(response){
+                setAccounts(response.data);
             }
-        ]);
+        } catch (error) {
+            console.log("Erro:",error);
+        }
+
+        setLoadingAccounts(false);
+    }
+
+    useEffect(() => {
+        loadAccounts();
     }, []);
 
     return (
@@ -45,17 +39,22 @@ export default function ResumoContas() {
                 </TouchableOpacity>
             </View>
 
-            <View style={styles.list}>
-                {
-                    accounts.map((item) => {
-                        return <ResumoConta key={item.id} data={item} isBalanceHidden={isBalanceHidden} />
-                    })
-                }
-            </View>
-            
-            <TouchableOpacity style={styles.btnSaldo}>
-                <Text style={styles.textoSaldo}>Ajustar Saldo</Text>
-            </TouchableOpacity>
+            {loadingAccounts && <ActivityIndicator size="large" color="#a2faca"/> }
+
+            {!loadingAccounts && 
+                <View style={styles.list}>
+                    {
+                        accounts.map((item) => {
+                            return <ResumoConta key={item.id} data={item} isBalanceHidden={isBalanceHidden} />
+                        })
+                    }
+                </View>
+            }
+            {!loadingAccounts && accounts?.length > 0 &&
+                <TouchableOpacity style={styles.btnSaldo}>
+                    <Text style={styles.textoSaldo}>Ajustar Saldo</Text>
+                </TouchableOpacity>
+            }
         </View>
     );
 }

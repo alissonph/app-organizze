@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { RefreshControl, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 import ResumoContas from '../../components/ResumoContas';
@@ -15,14 +15,12 @@ const wait = timeout => {
 
 export default function Main({ navigation }) {
   const [welcomeMessage, setWelcomeMessage] = useState("");
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
-
     wait(2000).then(() => setRefreshing(false));
   }, []);
-
 
   useEffect(() => {
     var date = new Date();

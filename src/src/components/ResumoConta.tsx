@@ -15,12 +15,12 @@ export default function ResumoConta({ data, isBalanceHidden }) {
                         <Icon name="bank" size={20} color="#FFF"/>
                     </View>
                     <View>
-                        <Text style={styles.name}>{data?.nome}</Text>
-                        <Text style={styles.description}>{data?.tipo}</Text>
+                        <Text style={styles.name}>{data?.name}</Text>
+                        <Text style={styles.description}>{data?.type}</Text>
                     </View>
                 </View>
                 
-                <Text style={styles.saldo}>R$ {!isBalanceHidden ? floatToMoney(data?.saldo) : '---'}</Text>
+                <Text style={styles.saldo}>R$ {!isBalanceHidden ? floatToMoney(data?.balance) : '---'}</Text>
             </View>
         </TouchableOpacity>
     );

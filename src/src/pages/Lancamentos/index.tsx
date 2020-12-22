@@ -1,164 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, SectionList, Text, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, SafeAreaView, SectionList, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from './styles';
 import { floatToMoney } from '../../Utils';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import api from '../../services/api';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Lancamentos({ route, navigation }) {
   const [ conta, setConta ] = useState({});
-  const [ lancamentos, setLancamentos ] = useState([]);
-  const [ meses, setMeses ] = useState([]);
-  //const 
+  const [ loadingMonths, setLoadingMonths ] = useState(false);
+  const [ loadingEntries, setLoadingEntries ] = useState(false);
+  const [ entries, setEntries ] = useState([]);
+  const [ months, setMonths ] = useState([]);
   
+  const loadMonths = async () => {
+    setLoadingMonths(true);
+
+    try {
+        let response = await api.get('/months');
+        if(response){
+            setMonths(response.data);
+        }
+    } catch (error) {
+        console.log("Erro:",error);
+    }
+
+    setLoadingMonths(false);
+  }
+
+  const loadEntries = async () => {
+    setLoadingEntries(true);
+
+    try {
+        let response = await api.get('/entries');
+        if(response){
+          setEntries(response.data);
+        }
+    } catch (error) {
+        console.log("Erro:",error);
+    }
+
+    setLoadingEntries(false);
+  }
+
+
+  useFocusEffect(
+    useCallback(() => {
+      loadMonths();
+      loadEntries();
+    }, [])
+  );
+
   useEffect(() => {
     if(route?.params?.conta){
       setConta(route.params.conta);
     }
-    //console.log("conta",conta);
   }, [route?.params?.conta]);
-
-  useEffect(() => {
-    setLancamentos([
-      {
-        title: "1 de dezembro",
-        data: [
-          {
-            id: 1,
-            nome: "Cinema",
-            origem: "Nuconta",
-            valor: -33.5,
-            status: "pago"
-          },
-          {
-            id: 2,
-            nome: "Padaria",
-            origem: "Porto Seguro",
-            valor: -35.5,
-            status: "Fatura de dezembro"
-          },
-          {
-            id: 3,
-            nome: "Etanol",
-            origem: "Azul",
-            valor: -223.3,
-            status: "Fatura de janeiro"
-          } 
-        ]
-      },
-      {
-        title: "8 de dezembro",
-        data: [
-          {
-            id: 1,
-            nome: "Baguete",
-            origem: "Nuconta",
-            valor: -22,
-            status: "pago"
-          },
-          {
-            id: 2,
-            nome: "Pizza",
-            origem: "Bradesco",
-            valor: -58.6,
-            status: "pago"
-          },
-          {
-            id: 3,
-            nome: "Etanol",
-            origem: "Porto Seguro",
-            valor: -100,
-            status: "Fatura de janeiro"
-          } 
-        ]
-      },
-      {
-        title: "12 de dezembro",
-        data: [
-          {
-            id: 1,
-            nome: "Carne",
-            origem: "Nuconta",
-            valor: -20,
-            status: "pago"
-          },
-          {
-            id: 2,
-            nome: "Vivo Controle",
-            origem: "Azul",
-            valor: -56.3,
-            status: "Fatura de dezembro"
-          },
-          {
-            id: 3,
-            nome: "Etanol",
-            origem: "Nuconta",
-            valor: -210,
-            status: "pago"
-          } 
-        ]
-      },
-      {
-        title: "20 de dezembro",
-        data: [
-          {
-            id: 1,
-            nome: "Mercado",
-            origem: "Nuconta",
-            valor: -203.2,
-            status: "pago"
-          },
-          {
-            id: 2,
-            nome: "Internet",
-            origem: "Azul",
-            valor: -99,
-            status: "Fatura de dezembro"
-          },
-          {
-            id: 3,
-            nome: "Mercado",
-            origem: "Nuconta",
-            valor: -21,
-            status: "pago"
-          } 
-        ]
-      }
-    ]);
-  }, []);
-
-  useEffect(() => {
-    setMeses([
-      {
-        id: 1,
-        descricao: "Outubro"
-      },
-      {
-        id: 2,
-        descricao: "Novembro"
-      },
-      {
-        id: 3,
-        descricao: "Dezembro"
-      },
-      {
-        id: 4,
-        descricao: "Jan de 2021"
-      },
-      {
-        id: 5,
-        descricao: "Fev de 2021"
-      },
-      {
-        id: 6,
-        descricao: "Mar de 2021"
-      },
-      {
-        id: 7,
-        descricao: "Abril de 2021"
-      }
-    ])
-  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -168,48 +66,56 @@ export default function Lancamentos({ route, navigation }) {
       <View style={styles.containerContent}>
         
         <View style={styles.containerMonth}>
-          <FlatList
-            contentContainerStyle={styles.monthList}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={meses}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <TouchableOpacity style={styles.monthItem}>
-                <Text style={styles.monthTitle}>{item.descricao}</Text>
-              </TouchableOpacity>
-            )}
-          />
+          {loadingMonths && <ActivityIndicator style={{paddingVertical:20}} size="large" color="#34eb86" />}
+          {!loadingMonths &&
+            <FlatList
+              contentContainerStyle={styles.monthList}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={months}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={styles.monthItem}>
+                  <Text style={styles.monthTitle}>{item.description}</Text>
+                </TouchableOpacity>
+              )}
+            />
+          }
         </View>
 
-        <SectionList
-          contentContainerStyle={styles.entryList}
-          sections={lancamentos}
-          keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => (
-            <View style={styles.entryContainer}>
-              <View style={styles.entryTitleContainer}>
-                <View style={styles.entryIcon}>
-                  <Icon name="bus" size={16} color="#FFF"/>
+        {loadingEntries && <ActivityIndicator style={{paddingTop:20}} size="large" color="#34eb86" />}
+        
+        {!loadingEntries &&
+        
+          <SectionList
+            contentContainerStyle={styles.entryList}
+            sections={entries}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.entryContainer}>
+                <View style={styles.entryTitleContainer}>
+                  <View style={styles.entryIcon}>
+                    <Icon name="bus" size={16} color="#FFF"/>
+                  </View>
+                  <View>
+                    <Text style={styles.entryTitle}>{item.name}</Text>
+                    <Text style={styles.entryOrigem}>{item.origem}</Text>
+                  </View>
                 </View>
-                <View>
-                  <Text style={styles.entryTitle}>{item.nome}</Text>
-                  <Text style={styles.entryOrigem}>{item.origem}</Text>
+                <View style={styles.entryValueContainer}>
+                  <Text style={styles.entryValue}>{floatToMoney(item.value)}</Text>
+                  <Text  style={styles.entryStatus}>{item.status}</Text>
                 </View>
               </View>
-              <View style={styles.entryValueContainer}>
-                <Text style={styles.entryValue}>{floatToMoney(item.valor)}</Text>
-                <Text  style={styles.entryStatus}>{item.status}</Text>
-              </View>
-            </View>
-          )}
-          renderSectionHeader={({ section: { title } }) => (
-            <Text style={styles.entrySectionTitle}>{title}</Text>
-          )}
-          ItemSeparatorComponent={
-            () => (<View style={styles.separator} />)
-          }
-        />
+            )}
+            renderSectionHeader={({ section: { title } }) => (
+              <Text style={styles.entrySectionTitle}>{title}</Text>
+            )}
+            ItemSeparatorComponent={
+              () => (<View style={styles.separator} />)
+            }
+          />
+        }
       </View>
     </SafeAreaView>
   );

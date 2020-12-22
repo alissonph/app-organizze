@@ -1,38 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import { Button, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import api from '../services/api';
 
 import ResumoCartao from './ResumoCartao';
 
 //eye-off e eye-outline
 export default function ResumoCartoes() {
     const [cards, setCards] = useState([]);
+    const [loadingCards, setLoadingCards] = useState(false);
+
+    const loadCards = async () => {
+        setLoadingCards(true);
+        try {
+            let response = await api.get('/cards');
+            if(response){
+                setCards(response.data);
+            }
+        } catch (error) {
+            console.log("Erro:",error);
+        }
+
+        setLoadingCards(false);
+    }
 
     useEffect(() => {
-        setCards([
-            { 
-                id: 1,
-                empresa: 'Visa',
-                nome: 'Porto Seguro',
-                limiteDisponivel: 5000,
-                faturaAtual : -98.88,
-            },
-            { 
-                id: 2,
-                empresa: 'Nubank',
-                nome: 'Nubank',
-                limiteDisponivel: 6055.23,
-                faturaAtual : -1045.88,
-            },
-            { 
-                id: 3,
-                empresa: 'Visa',
-                nome: 'Azul',
-                limiteDisponivel: 4500.22,
-                faturaAtual : -30.00,
-            }
-        ]);
+        loadCards();
     }, []);
 
     return (
@@ -44,13 +38,17 @@ export default function ResumoCartoes() {
                 </TouchableOpacity>
             </View>
 
-            <View style={styles.list}>
-                {
-                    cards.map((item) => {
-                        return <ResumoCartao key={item.id} data={item} />
-                    })
-                }
-            </View>
+            {loadingCards && <ActivityIndicator size="large" color="#a2faca"/> }
+
+            {!loadingCards &&
+                <View style={styles.list}>
+                    {
+                        cards.map((item) => {
+                            return <ResumoCartao key={item.id} data={item} />
+                        })
+                    }
+                </View>
+            }
         </View>
     );
 }

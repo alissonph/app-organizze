@@ -13,18 +13,18 @@ export default function ResumoCartao({ data }) {
                         <Icon name="credit-card" size={20} color="#FFF"/>
                     </View>
                     <View>
-                        <Text style={styles.company}>{data?.empresa}</Text>
-                        <Text style={styles.name}>{data?.nome}</Text>
+                        <Text style={styles.company}>{data?.company}</Text>
+                        <Text style={styles.name}>{data?.name}</Text>
                     </View>
                 </View>
                 <View style={styles.containerValues}>
                     <View>
                         <Text>Disponível</Text>
-                        <Text>R$ {floatToMoney(data?.limiteDisponivel)}</Text>
+                        <Text>R$ {floatToMoney(data?.availableLimit)}</Text>
                     </View>
                     <View>
                         <Text>Fatura Atual</Text>
-                        <Text style={styles.fatura}>R$ {floatToMoney(data?.faturaAtual)}</Text>
+                        <Text style={styles.fatura}>R$ {floatToMoney(data?.currentInvoice)}</Text>
                     </View>
                 </View>
             </View>

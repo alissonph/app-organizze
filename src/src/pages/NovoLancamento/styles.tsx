@@ -2,11 +2,10 @@ import { StyleSheet } from 'react-native';
 import Constants from "expo-constants";
 
 export const styles = StyleSheet.create({
-    container: (option?:object) => ({
+    container: {
       flex: 1,
-      backgroundColor: (option == "Despesa" ? 'red' : (option == "Receita" ? '#34eb86' : '#999')),
       paddingTop: Constants.statusBarHeight,
-    }),
+    },
     containerHeader: {
       flexDirection: 'row',
       padding: 20,
@@ -24,11 +23,10 @@ export const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#FFF',
     },
-    containerValue: (option?:object) => ({
+    containerValue: {
       height: 90,
-      backgroundColor: (option == "Despesa" ? 'red' : (option == "Receita" ? '#34eb86' : '#999')),
       paddingHorizontal: 20,
-    }),
+    },
     inputValue: {
       alignSelf: 'flex-end',
       fontSize: 30,

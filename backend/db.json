@@ -1,0 +1,185 @@
+{
+  "accounts": [
+    {
+      "id": 1,
+      "name": "Nuconta",
+      "type": "Conta Corrente",
+      "icon": "",
+      "balance": 9123.32
+    },
+    {
+      "id": 2,
+      "name": "Bradesco",
+      "type": "Conta Poupança",
+      "icon": "",
+      "balance": 117234
+    },
+    {
+      "id": 3,
+      "name": "Easyinvest",
+      "type": "Investimentos",
+      "icon": "",
+      "balance": 557432.7
+    },
+    {
+      "name": "Itaú",
+      "type": "Conta Corrente",
+      "icon": "",
+      "balance": 320.1,
+      "id": 4
+    }
+  ],
+  "cards": [
+    {
+      "id": 1,
+      "company": "Visa",
+      "name": "Porto Seguro",
+      "availableLimit": 5000,
+      "currentInvoice": -98.88
+    },
+    {
+      "id": 2,
+      "company": "Nubank",
+      "name": "Nubank",
+      "availableLimit": 6055.23,
+      "currentInvoice": -1045.88
+    },
+    {
+      "id": 3,
+      "company": "Visa",
+      "name": "Azul",
+      "availableLimit": 4500.22,
+      "currentInvoice": -30
+    }
+  ],
+  "entries": [
+    {
+      "id": 1,
+      "title": "1 de dezembro",
+      "date": "01/12/2020",
+      "data": [
+        {
+          "id": 1,
+          "name": "Cinema",
+          "origem": "Nuconta",
+          "value": -33.5,
+          "status": "pago"
+        },
+        {
+          "id": 2,
+          "name": "Padaria",
+          "origem": "Porto Seguro",
+          "value": -35.5,
+          "status": "Fatura de dezembro"
+        },
+        {
+          "id": 3,
+          "name": "Carro",
+          "origem": "Azul",
+          "value": -223.3,
+          "status": "Fatura de janeiro"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "8 de dezembro",
+      "date": "08/12/2020",
+      "data": [
+        {
+          "id": 1,
+          "name": "Baguete",
+          "origem": "Nuconta",
+          "value": -22,
+          "status": "pago"
+        },
+        {
+          "id": 2,
+          "name": "Pizza",
+          "origem": "Bradesco",
+          "value": -58.6,
+          "status": "pago"
+        },
+        {
+          "id": 3,
+          "name": "Etanol",
+          "origem": "Porto Seguro",
+          "value": -100,
+          "status": "Fatura de janeiro"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "12 de dezembro",
+      "date": "12/12/2020",
+      "data": [
+        {
+          "id": 1,
+          "name": "Carne",
+          "origem": "Nuconta",
+          "value": -20,
+          "status": "pago"
+        },
+        {
+          "id": 2,
+          "name": "Vivo Controle",
+          "origem": "Azul",
+          "value": -56.3,
+          "status": "Fatura de dezembro"
+        },
+        {
+          "id": 3,
+          "name": "Etanol",
+          "origem": "Nuconta",
+          "value": -210,
+          "status": "pago"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "20 de dezembro",
+      "date": "20/12/2020",
+      "data": [
+        {
+          "id": 4,
+          "name": "Mercado",
+          "origem": "Nuconta",
+          "value": -22,
+          "status": "pago"
+        }
+      ]
+    }
+  ],
+  "months": [
+    {
+      "id": 1,
+      "description": "Outubro"
+    },
+    {
+      "id": 2,
+      "description": "Novembro"
+    },
+    {
+      "id": 3,
+      "description": "Dezembro"
+    },
+    {
+      "id": 4,
+      "description": "Jan de 2021"
+    },
+    {
+      "id": 5,
+      "description": "Fev de 2021"
+    },
+    {
+      "id": 6,
+      "description": "Mar de 2021"
+    },
+    {
+      "id": 7,
+      "description": "Abril de 2021"
+    }
+  ]
+}
