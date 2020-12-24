@@ -1,2 +1,2 @@
-json-server --watch db.json
+json-server --watch db.json --host 192.168.0.2
 adb reverse tcp:3000 tcp:3000

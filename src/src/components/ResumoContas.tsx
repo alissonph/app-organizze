@@ -7,28 +7,8 @@ import api from '../services/api';
 import ResumoConta from './ResumoConta';
 
 //eye-off e eye-outline
-export default function ResumoContas() {
+export default function ResumoContas({loadingAccounts, accounts}) {
     const [isBalanceHidden, setBalanceHidden] = useState(false);
-    const [loadingAccounts, setLoadingAccounts] = useState(false);
-    const [accounts, setAccounts] = useState([]);
-
-    const loadAccounts = async () => {
-        setLoadingAccounts(true);
-        try {
-            let response = await api.get('/accounts');
-            if(response){
-                setAccounts(response.data);
-            }
-        } catch (error) {
-            console.log("Erro:",error);
-        }
-
-        setLoadingAccounts(false);
-    }
-
-    useEffect(() => {
-        loadAccounts();
-    }, []);
 
     return (
         <View style={styles.container}>

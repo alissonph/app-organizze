@@ -1,10 +1,13 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import { styles } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import ModalPicker from '../../components/ModalPicker';
+
+import api from '../../services/api';
 
 const wait = timeout => {
   return new Promise(resolve => {
@@ -13,10 +16,13 @@ const wait = timeout => {
 };
 
 export default function NovoLancamento({ navigation }) {
+  const [visibleCategoryModal, setVisibleCategoryModal] = useState(false);
+  const [categories, setCategories] = useState([]);
   const [value, setValue] = useState(0);
   const [option, setOption] = useState("Despesa");
   const [description, setDescription] = useState("");
   const [saving, setSaving] = useState(false);
+  const [entry, setEntry] = useState({category:'Outros'})
 
   const onSave = useCallback(() => {
     setSaving(true);
@@ -24,8 +30,43 @@ export default function NovoLancamento({ navigation }) {
     wait(2000).then(() => setSaving(false));
   }, []);
 
+  const loadCategories = async () => {
+    try {
+        let response = await api.get('/category');
+        if(response){
+            var categoriesOptions = [];
+            response.data.map((item)=>{
+                categoriesOptions.push({key: item.id, description: item.description})
+            });
+            setCategories(categoriesOptions);
+        }
+    } catch (error) {
+        console.log("Erro:",error);
+    }
+  }
+
+  const loadData = useCallback(() => {
+    loadCategories();
+  },[]);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const onCancelCategoryModal = () => {
+    setVisibleCategoryModal(false);
+  }
+
+  const onSelectCategoryModal = (data) => {
+    setVisibleCategoryModal(false);
+    setEntry({...entry, category: data.description});
+  }
+
   return (
     <SafeAreaView style={{backgroundColor: (option == "Despesa" ? 'red' : (option == "Receita" ? '#34eb86' : '#999')), ...styles.container}}>
+      
+      <ModalPicker visible={visibleCategoryModal} options={categories} onSelect={onSelectCategoryModal} onCancel={onCancelCategoryModal} />
+      
       <View style={styles.containerHeader}>
         <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.goBack()} hitSlop={{top: 10, left: 15, bottom: 15, right: 15}}>
           <Icon name="keyboard-backspace" size={25} color="#FFF" />
@@ -69,11 +110,11 @@ export default function NovoLancamento({ navigation }) {
             </View>
           </View>
           <View style={styles.containerOption}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setVisibleCategoryModal(!visibleCategoryModal)}>
               <Text style={styles.titleField}>Categoria</Text>
               <View style={styles.containerInput}>
                 <Icon name="format-list-bulleted" size={20} color="#000" />
-                <Text style={styles.inputField}>Outros</Text>
+                <Text style={styles.inputField}>{entry.category}</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -96,4 +137,3 @@ export default function NovoLancamento({ navigation }) {
     </SafeAreaView>
   );
 }
-

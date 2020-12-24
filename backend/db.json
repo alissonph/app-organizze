@@ -181,5 +181,95 @@
       "id": 7,
       "description": "Abril de 2021"
     }
+  ],
+  "category": [
+	{
+		"id": 1,
+		"description": "Alimentação"
+	},
+	{
+		"id": 2,
+		"description": "Assinaturas e serviços"
+	},
+	{
+		"id": 3,
+		"description": "Bares e restaurantes"
+	},
+	{
+		"id": 4,
+		"description": "Casa"
+	},
+	{
+		"id": 5,
+		"description": "Compras"
+	},
+	{
+		"id": 6,
+		"description": "Cuidados Pessoais"
+	},
+	{
+		"id": 7,
+		"description": "Dívidas e empréstimos"
+	},
+	{
+		"id": 8,
+		"description": "Educação"
+	},
+	{
+		"id": 9,
+		"description": "Família e filhos"
+	},
+	{
+		"id": 10,
+		"description": "Impostos e taxas"
+	},
+	{
+		"id": 11,
+		"description": "Investimentos"
+	},
+	{
+		"id": 12,
+		"description": "Lazer e hobbies"
+	},
+	{
+		"id": 13,
+		"description": "Jogos"
+	},
+	{
+		"id": 14,
+		"description": "Mercado"
+	},
+	{
+		"id": 15,
+		"description": "Outros"
+	},
+	{
+		"id": 16,
+		"description": "Pets"
+	},
+	{
+		"id": 17,
+		"description": "Presentes e doações"
+	},
+	{
+		"id": 18,
+		"description": "Roupas"
+	},
+	{
+		"id": 19,
+		"description": "Saúde"
+	},
+	{
+		"id": 20,
+		"description": "Trabalho"
+	},
+	{
+		"id": 21,
+		"description": "Transporte"
+	},
+	{
+		"id": 22,
+		"description": "Viagem"
+	}
   ]
 }

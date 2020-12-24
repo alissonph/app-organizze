@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { RefreshControl, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
+import api from '../../services/api';
 import ResumoContas from '../../components/ResumoContas';
 import ResumoCartoes from '../../components/ResumoCartoes';
 
@@ -16,10 +17,50 @@ const wait = timeout => {
 export default function Main({ navigation }) {
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const [refreshing, setRefreshing] = useState(false);
+  const [loadingAccounts, setLoadingAccounts] = useState(false);
+  const [accounts, setAccounts] = useState([]);
+  const [loadingCards, setLoadingCards] = useState(false);
+  const [cards, setCards] = useState([]);
+
+  const loadAccounts = async () => {
+    setLoadingAccounts(true);
+    try {
+        let response = await api.get('/accounts');
+        if(response){
+            setAccounts(response.data);
+        }
+    } catch (error) {
+        console.log("Erro:",error);
+    }
+
+    setLoadingAccounts(false);
+  }
+
+  const loadCards = async () => {
+    setLoadingCards(true);
+    try {
+        let response = await api.get('/cards');
+        if(response){
+            setCards(response.data);
+        }
+    } catch (error) {
+        console.log("Erro:",error);
+    }
+
+    setLoadingCards(false);
+  }
+
+  const loadData = useCallback(() => {
+    loadAccounts();
+    loadCards();
+  },[]);
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
+    loadData();
   }, []);
 
   useEffect(() => {
@@ -38,7 +79,7 @@ export default function Main({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+          refreshControl={<RefreshControl refreshing={loadingAccounts || loadingCards} onRefresh={onRefresh} />}
         >
           <View style={styles.containerHeader}>
             <View style={styles.containerWelcome}>
@@ -50,8 +91,8 @@ export default function Main({ navigation }) {
             </TouchableOpacity>
           </View>
           <View>
-            <ResumoContas/>
-            <ResumoCartoes/>
+            <ResumoContas loadingAccounts={loadingAccounts} accounts={accounts}/>
+            <ResumoCartoes loadingCards={loadingCards} cards={cards}/>
           </View>
 
         </ScrollView>

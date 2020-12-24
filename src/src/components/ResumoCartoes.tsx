@@ -7,27 +7,7 @@ import api from '../services/api';
 import ResumoCartao from './ResumoCartao';
 
 //eye-off e eye-outline
-export default function ResumoCartoes() {
-    const [cards, setCards] = useState([]);
-    const [loadingCards, setLoadingCards] = useState(false);
-
-    const loadCards = async () => {
-        setLoadingCards(true);
-        try {
-            let response = await api.get('/cards');
-            if(response){
-                setCards(response.data);
-            }
-        } catch (error) {
-            console.log("Erro:",error);
-        }
-
-        setLoadingCards(false);
-    }
-
-    useEffect(() => {
-        loadCards();
-    }, []);
+export default function ResumoCartoes({loadingCards, cards}) {
 
     return (
         <View style={styles.container}>
