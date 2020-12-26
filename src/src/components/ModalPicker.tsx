@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, Modal, StyleSheet, Alert, TouchableOpacity, TextInput, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function ModalPicker({ visible, options, onSelect, onCancel }) {
+export default function ModalPicker({ visible, title, options, onSelect, onCancel }) {
     const [ searchValue, setSearchValue] = useState('');
     const [ filteredOptions, setFilteredOptions ] = useState([]);
 
@@ -28,11 +28,13 @@ export default function ModalPicker({ visible, options, onSelect, onCancel }) {
             transparent={true}
             visible={visible}
             supportedOrientations="portrait"
+            onRequestClose={onCancel}
         >
             <View style={styles.container}>
                 <View style={styles.modalView}>
                     <View style={styles.containerHeader}>
-                        <TouchableOpacity onPress={onCancel} hitSlop={{top: 5, left: 5, bottom: 5, right: 5}}>
+                    <Text style={styles.title}>{title}</Text>
+                        <TouchableOpacity style={styles.closeButton} onPress={onCancel} hitSlop={{top: 5, left: 5, bottom: 5, right: 5}}>
                             <Icon name="close" color="#CCC" size={25}/>
                         </TouchableOpacity>
                     </View>
@@ -86,8 +88,16 @@ const styles = StyleSheet.create({
         borderBottomColor: '#EEE',
     },
     containerHeader:{
-        alignSelf: 'flex-end',
+        width: '100%',
         paddingBottom: 10,
+    },
+    title: {
+        color: '#AAA',
+        alignSelf: 'center',
+    },
+    closeButton: {
+        alignSelf: 'flex-end',
+        position: 'absolute',
     },
     searchInput: {
         backgroundColor: 'white',
