@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -5,8 +6,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { floatToMoney } from '../Utils';
 
 export default function ResumoCartao({ data }) {
+    const navigation = useNavigation();
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Lancamentos")}>
             <View style={styles.container}>
                 <View style={styles.containerTitle}>
                     <View style={styles.viewCardIcon}>

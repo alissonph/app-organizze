@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView, SectionList, Text, View } from 'react-native';
+import { ActivityIndicator, RefreshControl, SafeAreaView, SectionList, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from './styles';
 import { floatToMoney } from '../../Utils';
@@ -8,7 +8,7 @@ import api from '../../services/api';
 import { useFocusEffect } from '@react-navigation/native';
 
 export default function Lancamentos({ route, navigation }) {
-  const [ conta, setConta ] = useState({});
+  //const [ conta, setConta ] = useState({});
   const [ loadingMonths, setLoadingMonths ] = useState(false);
   const [ loadingEntries, setLoadingEntries ] = useState(false);
   const [ entries, setEntries ] = useState([]);
@@ -52,11 +52,11 @@ export default function Lancamentos({ route, navigation }) {
     }, [])
   );
 
-  useEffect(() => {
+  /*useEffect(() => {
     if(route?.params?.conta){
       setConta(route.params.conta);
     }
-  }, [route?.params?.conta]);
+  }, [route?.params?.conta]);*/
 
   return (
     <SafeAreaView style={styles.container}>
@@ -91,11 +91,12 @@ export default function Lancamentos({ route, navigation }) {
             contentContainerStyle={styles.entryList}
             sections={entries}
             keyExtractor={(item) => item.id.toString()}
+            refreshControl={<RefreshControl refreshing={loadingEntries} onRefresh={loadEntries} />}
             renderItem={({ item }) => (
               <View style={styles.entryContainer}>
                 <View style={styles.entryTitleContainer}>
                   <View style={styles.entryIcon}>
-                    <Icon name="bus" size={16} color="#FFF"/>
+                    <Icon name={item.icon} size={16} color="#FFF"/>
                   </View>
                   <View>
                     <Text style={styles.entryTitle}>{item.name}</Text>

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { Alert, ActivityIndicator, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -17,26 +18,57 @@ const wait = timeout => {
 };
 
 export default function NovoLancamento({ navigation }) {
+  const { account } = useSelector((store) => store);
+  const dispatch = useDispatch();
+  
   const [visibleCategoryModal, setVisibleCategoryModal] = useState(false);
   const [visibleDatePicker, setVisibleDatePicker] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [accountOptions, setAccountOptions] = useState([]);
   const [saving, setSaving] = useState(false);
+
+  const [visible, setVisible] = useState({
+    visibleAccountModal: false
+  });
+
   const [entry, setEntry] = useState({
     type: 'Despesa',
     value: 0,
     description: '',
-    category: 'Outros',
+    category: '',
+    account: '',
     date: new Date(),
   })
 
-  const onSave = useCallback(() => {
-    setSaving(true);
+  const onSave = () => {
+    if(validateEntry()){
+      setSaving(true);
+      wait(2000).then(() => {
+        setSaving(false)
+        navigation.navigate('MainTabs');
+      });
+    }
+  }
 
-    wait(2000).then(() => {
-      setSaving(false)
-      navigation.navigate('MainTabs');
-    });
-  }, []);
+  const validateEntry = () => {
+    let message = "";
+    if(entry.value == 0){
+      message = "Informe o valor.";
+    }else if(entry.description == ""){
+      message = "Informe a descrição.";
+    }else if(entry.category == ""){
+      message = "Informe a categoria.";
+    }else if(entry.account == ""){
+      message = "Informe a conta.";
+    }else if(entry.date == ""){
+      message = "Informe a data.";
+    }
+
+    if(message != ""){
+      Alert.alert("Atenção", message, [{text: "OK"}]);
+    }
+    return message == "";
+  }
 
   const loadCategories = async () => {
     try {
@@ -61,20 +93,37 @@ export default function NovoLancamento({ navigation }) {
     loadData();
   }, []);
 
-  const onCancelCategoryModal = () => {
-    setVisibleCategoryModal(false);
-  }
+  useEffect(() => {
+    var newAccountOptions = [];
+    account?.data?.map((item) => {
+      newAccountOptions.push({ key: item.id, description: item.name});
+    });
+    setAccountOptions(newAccountOptions);
+  }, [account])
 
   const onSelectCategoryModal = (data) => {
     setVisibleCategoryModal(false);
     setEntry({...entry, category: data.description});
   }
+  const onCancelCategoryModal = () => {
+    setVisibleCategoryModal(false);
+  }
+  
+  const onSelectAccountModal = (data) => {
+    setVisible({...visible, visibleAccountModal: false});
+    setEntry({...entry, account: data.description});
+  }
+  const onCancelAccountModal = () => {
+    setVisible({...visible, visibleAccountModal: false});
+  }
+
 
   return (
     <SafeAreaView style={{backgroundColor: (entry.type == "Despesa" ? 'red' : (entry.type == "Receita" ? '#34eb86' : '#999')), ...styles.container}}>
       
       <ModalPicker title="Selecione uma categoria" visible={visibleCategoryModal} options={categories} onSelect={onSelectCategoryModal} onCancel={onCancelCategoryModal} />
-      
+      <ModalPicker title="Selecione uma conta" visible={visible.visibleAccountModal} options={accountOptions} onSelect={onSelectAccountModal} onCancel={onCancelAccountModal} />
+
       <View style={styles.containerHeader}>
         <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.goBack()} hitSlop={{top: 10, left: 15, bottom: 15, right: 15}}>
           <Icon name="keyboard-backspace" size={25} color="#FFF" />
@@ -127,11 +176,11 @@ export default function NovoLancamento({ navigation }) {
             </TouchableOpacity>
           </View>
           <View style={styles.containerOption}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setVisible(!visible.visibleAccountModal)}>
               <Text style={styles.titleField}>Pagar com</Text>
               <View style={styles.containerInput}>
                 <Icon name="bank" size={20} color="#000" />
-                <Text style={styles.inputField}>Nuconta</Text>
+                <Text style={styles.inputField}>{entry.account}</Text>
               </View>
             </TouchableOpacity>
           </View>

@@ -1,12 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { RefreshControl, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { RefreshControl, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
-import api from '../../services/api';
-import ResumoContas from '../../components/ResumoContas';
-import ResumoCartoes from '../../components/ResumoCartoes';
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+
+import api from '../../services/api';
+import { showToast } from '../../Utils';
+import { getAccounts } from '../../actions/account';
+import { getCards } from '../../actions/card';
+import ResumoContas from '../../components/ResumoContas';
+import ResumoCartoes from '../../components/ResumoCartoes';
 
 const wait = timeout => {
   return new Promise(resolve => {
@@ -15,53 +19,47 @@ const wait = timeout => {
 };
 
 export default function Main({ navigation }) {
+  const { account, card } = useSelector((store) => store);
+  const dispatch = useDispatch();
+
   const [welcomeMessage, setWelcomeMessage] = useState("");
-  const [refreshing, setRefreshing] = useState(false);
   const [loadingAccounts, setLoadingAccounts] = useState(false);
-  const [accounts, setAccounts] = useState([]);
   const [loadingCards, setLoadingCards] = useState(false);
+  const [accounts, setAccounts] = useState([]);
   const [cards, setCards] = useState([]);
 
   const loadAccounts = async () => {
     setLoadingAccounts(true);
-    try {
-        let response = await api.get('/accounts');
-        if(response){
-            setAccounts(response.data);
-        }
-    } catch (error) {
-        console.log("Erro:",error);
-    }
-
+    await dispatch(getAccounts());
     setLoadingAccounts(false);
   }
 
+  useEffect(() => {
+    if(account?.error && account?.errorMessage != ""){
+      showToast(account?.errorMessage.toString());
+    }else{
+      setAccounts(account.data);
+    }
+  }, [account])
+
   const loadCards = async () => {
     setLoadingCards(true);
-    try {
-        let response = await api.get('/cards');
-        if(response){
-            setCards(response.data);
-        }
-    } catch (error) {
-        console.log("Erro:",error);
-    }
-
+    await dispatch(getCards());
     setLoadingCards(false);
   }
+
+  useEffect(() => {
+    if(card?.error && card?.errorMessage != ""){
+      showToast(card?.errorMessage.toString());
+    }else{
+      setCards(card.data);
+    }
+  }, [card])
 
   const loadData = useCallback(() => {
     loadAccounts();
     loadCards();
   },[]);
-
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const onRefresh = useCallback(() => {
-    loadData();
-  }, []);
 
   useEffect(() => {
     var date = new Date();
@@ -74,7 +72,13 @@ export default function Main({ navigation }) {
     }else{
       setWelcomeMessage("Boa noite");
     }
-  });
+
+    loadData();
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    loadData();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

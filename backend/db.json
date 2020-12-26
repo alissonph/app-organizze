@@ -60,6 +60,7 @@
       "data": [
         {
           "id": 1,
+		  "icon": "television",
           "name": "Cinema",
           "origem": "Nuconta",
           "value": -33.5,
@@ -67,6 +68,7 @@
         },
         {
           "id": 2,
+		  "icon": "silverware-fork-knife",
           "name": "Padaria",
           "origem": "Porto Seguro",
           "value": -35.5,
@@ -74,6 +76,7 @@
         },
         {
           "id": 3,
+		  "icon": "bus",
           "name": "Carro",
           "origem": "Azul",
           "value": -223.3,
@@ -87,21 +90,24 @@
       "date": "08/12/2020",
       "data": [
         {
-          "id": 1,
+          "id": 4,
+		  "icon": "silverware-fork-knife",
           "name": "Baguete",
           "origem": "Nuconta",
           "value": -22,
           "status": "pago"
         },
         {
-          "id": 2,
+          "id": 5,
+		  "icon": "silverware-fork-knife",
           "name": "Pizza",
           "origem": "Bradesco",
           "value": -58.6,
           "status": "pago"
         },
         {
-          "id": 3,
+          "id": 6,
+		  "icon": "bus",
           "name": "Etanol",
           "origem": "Porto Seguro",
           "value": -100,
@@ -115,21 +121,24 @@
       "date": "12/12/2020",
       "data": [
         {
-          "id": 1,
+          "id": 7,
+		  "icon": "silverware-fork-knife",
           "name": "Carne",
           "origem": "Nuconta",
           "value": -20,
           "status": "pago"
         },
         {
-          "id": 2,
-          "name": "Vivo Controle",
+          "id": 8,
+		  "icon": "airplane",
+          "name": "Viagem Maceió",
           "origem": "Azul",
-          "value": -56.3,
+          "value": -1725.00,
           "status": "Fatura de dezembro"
         },
         {
-          "id": 3,
+          "id": 9,
+		  "icon": "bus",
           "name": "Etanol",
           "origem": "Nuconta",
           "value": -210,
@@ -143,7 +152,8 @@
       "date": "20/12/2020",
       "data": [
         {
-          "id": 4,
+          "id": 10,
+		  "icon": "silverware-fork-knife",
           "name": "Mercado",
           "origem": "Nuconta",
           "value": -22,
