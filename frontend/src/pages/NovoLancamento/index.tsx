@@ -10,15 +10,11 @@ import Moment from 'moment';
 import { styles } from './styles';
 
 import api from '../../services/api';
-
-const wait = timeout => {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-};
+import { showToast } from '../../Utils';
+import { addEntry, RESET_ENTRY } from '../../actions/entry';
 
 export default function NovoLancamento({ navigation }) {
-  const { account } = useSelector((store) => store);
+  const { account, entry } = useSelector((store) => store);
   const dispatch = useDispatch();
   
   const [visibleCategoryModal, setVisibleCategoryModal] = useState(false);
@@ -31,7 +27,7 @@ export default function NovoLancamento({ navigation }) {
     visibleAccountModal: false
   });
 
-  const [entry, setEntry] = useState({
+  const [newEntry, setNewEntry] = useState({
     type: 'Despesa',
     value: 0,
     description: '',
@@ -40,27 +36,42 @@ export default function NovoLancamento({ navigation }) {
     date: new Date(),
   })
 
-  const onSave = () => {
+  const onSave = async () => {
     if(validateEntry()){
       setSaving(true);
-      wait(2000).then(() => {
-        setSaving(false)
-        navigation.navigate('MainTabs');
-      });
+      await dispatch(await addEntry({
+        date: Moment(newEntry.date).format("DD/MM/YYYY"),
+        icon: "silverware-fork-knife",
+        description: newEntry.description,
+        account: newEntry.account,
+        value: -22,
+        status: "pago"
+      }));
+      setSaving(false)
     }
   }
 
+  useEffect(() => {
+    if(entry?.error && entry?.errorMessage != ""){
+      showToast(entry?.errorMessage.toString());
+    }else if(entry?.success){
+      dispatch({type: RESET_ENTRY});
+      navigation.navigate('MainTabs');
+    }
+    console.log(entry)
+  }, [entry])
+
   const validateEntry = () => {
     let message = "";
-    if(entry.value == 0){
+    if(newEntry.value == 0){
       message = "Informe o valor.";
-    }else if(entry.description == ""){
+    }else if(newEntry.description == ""){
       message = "Informe a descrição.";
-    }else if(entry.category == ""){
+    }else if(newEntry.category == ""){
       message = "Informe a categoria.";
-    }else if(entry.account == ""){
+    }else if(newEntry.account == ""){
       message = "Informe a conta.";
-    }else if(entry.date == ""){
+    }else if(newEntry.date == ""){
       message = "Informe a data.";
     }
 
@@ -103,7 +114,7 @@ export default function NovoLancamento({ navigation }) {
 
   const onSelectCategoryModal = (data) => {
     setVisibleCategoryModal(false);
-    setEntry({...entry, category: data.description});
+    setNewEntry({...newEntry, category: data.description});
   }
   const onCancelCategoryModal = () => {
     setVisibleCategoryModal(false);
@@ -111,7 +122,7 @@ export default function NovoLancamento({ navigation }) {
   
   const onSelectAccountModal = (data) => {
     setVisible({...visible, visibleAccountModal: false});
-    setEntry({...entry, account: data.description});
+    setNewEntry({...newEntry, account: data.description});
   }
   const onCancelAccountModal = () => {
     setVisible({...visible, visibleAccountModal: false});
@@ -119,7 +130,7 @@ export default function NovoLancamento({ navigation }) {
 
 
   return (
-    <SafeAreaView style={{backgroundColor: (entry.type == "Despesa" ? 'red' : (entry.type == "Receita" ? '#34eb86' : '#999')), ...styles.container}}>
+    <SafeAreaView style={{backgroundColor: (newEntry.type == "Despesa" ? 'red' : (newEntry.type == "Receita" ? '#34eb86' : '#999')), ...styles.container}}>
       
       <ModalPicker title="Selecione uma categoria" visible={visibleCategoryModal} options={categories} onSelect={onSelectCategoryModal} onCancel={onCancelCategoryModal} />
       <ModalPicker title="Selecione uma conta" visible={visible.visibleAccountModal} options={accountOptions} onSelect={onSelectAccountModal} onCancel={onCancelAccountModal} />
@@ -131,9 +142,9 @@ export default function NovoLancamento({ navigation }) {
         <Text style={styles.title}>Novo Lançamento</Text>
       </View>   
       <View style={styles.containerContent}>
-        <View style={{ backgroundColor: (entry.type == "Despesa" ? 'red' : (entry.type == "Receita" ? '#34eb86' : '#999')), ...styles.containerValue}}>
+        <View style={{ backgroundColor: (newEntry.type == "Despesa" ? 'red' : (newEntry.type == "Receita" ? '#34eb86' : '#999')), ...styles.containerValue}}>
           <TextInputMask type="money" 
-            value={entry.value}
+            value={newEntry.value}
             options={{
               precision: 2,
               separator: ',',
@@ -141,19 +152,19 @@ export default function NovoLancamento({ navigation }) {
               unit: 'R$ ',
             }}
             onChangeText={text => {
-              setEntry({ ...entry, value: text});
+              setNewEntry({ ...newEntry, value: text});
               //console.log(text);
             }}
           style={styles.inputValue} keyboardType="numeric" />
           <View style={styles.containerOptions}>
-            <TouchableOpacity onPress={() => setEntry({...entry, type:"Despesa"})} hitSlop={{top: 10, left: 10, bottom: 10, right: 10}}>
-              <Text style={{fontWeight: entry.type == 'Despesa' ? 'bold' : 'normal', ...styles.textOption}}>Despesa</Text>
+            <TouchableOpacity onPress={() => setNewEntry({...newEntry, type:"Despesa"})} hitSlop={{top: 10, left: 10, bottom: 10, right: 10}}>
+              <Text style={{fontWeight: newEntry.type == 'Despesa' ? 'bold' : 'normal', ...styles.textOption}}>Despesa</Text>
             </TouchableOpacity>
-            <TouchableOpacity  onPress={() => setEntry({...entry, type:"Receita"})} hitSlop={{top: 10, left: 10, bottom: 10, right: 10}}>
-              <Text style={{fontWeight: entry.type == 'Receita' ? 'bold' : 'normal', ...styles.textOption}}>Receita</Text>
+            <TouchableOpacity  onPress={() => setNewEntry({...newEntry, type:"Receita"})} hitSlop={{top: 10, left: 10, bottom: 10, right: 10}}>
+              <Text style={{fontWeight: newEntry.type == 'Receita' ? 'bold' : 'normal', ...styles.textOption}}>Receita</Text>
             </TouchableOpacity>
-            <TouchableOpacity  onPress={() => setEntry({...entry, type:"Transferencia"})} hitSlop={{top: 10, left: 10, bottom: 10, right: 10}}>
-              <Text style={{fontWeight: entry.type == 'Transferencia' ? 'bold' : 'normal', ...styles.textOption}}>Transferência</Text>
+            <TouchableOpacity  onPress={() => setNewEntry({...newEntry, type:"Transferencia"})} hitSlop={{top: 10, left: 10, bottom: 10, right: 10}}>
+              <Text style={{fontWeight: newEntry.type == 'Transferencia' ? 'bold' : 'normal', ...styles.textOption}}>Transferência</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -163,7 +174,7 @@ export default function NovoLancamento({ navigation }) {
             <Text style={styles.titleField}>Descrição</Text>
             <View style={styles.containerInput}>
               <MaterialIcons name="edit" size={20} color="#000" />
-              <TextInput style={styles.inputField} placeholder="Adicione a descrição" onChangeText={text => setEntry({...entry, description: text})} value={entry.description}/>
+              <TextInput style={styles.inputField} placeholder="Adicione a descrição" onChangeText={text => setNewEntry({...newEntry, description: text})} value={newEntry.description}/>
             </View>
           </View>
           <View style={styles.containerOption}>
@@ -171,7 +182,7 @@ export default function NovoLancamento({ navigation }) {
               <Text style={styles.titleField}>Categoria</Text>
               <View style={styles.containerInput}>
                 <Icon name="format-list-bulleted" size={20} color="#000" />
-                <Text style={styles.inputField}>{entry.category}</Text>
+                <Text style={styles.inputField}>{newEntry.category}</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -180,7 +191,7 @@ export default function NovoLancamento({ navigation }) {
               <Text style={styles.titleField}>Pagar com</Text>
               <View style={styles.containerInput}>
                 <Icon name="bank" size={20} color="#000" />
-                <Text style={styles.inputField}>{entry.account}</Text>
+                <Text style={styles.inputField}>{newEntry.account}</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -189,16 +200,16 @@ export default function NovoLancamento({ navigation }) {
               <Text style={styles.titleField}>Data</Text>
               <View style={styles.containerInput}>
                 <Icon name="calendar" size={20} color="#000" />
-                <Text style={styles.inputField}>{Moment(entry.date).format("DD/MM/YYYY")}</Text>
+                <Text style={styles.inputField}>{Moment(newEntry.date).format("DD/MM/YYYY")}</Text>
                 {visibleDatePicker && <DateTimePicker
-                  value={entry.date}
+                  value={newEntry.date}
                   mode='date'
                   is24Hour={true}
                   display="default"
                   onChange={(event, selectedDate)=> {
                     setVisibleDatePicker(false)
                     if(selectedDate){
-                      setEntry({...entry, date: selectedDate})
+                      setNewEntry({...newEntry, date: selectedDate})
                     }
                   }}
                 />}

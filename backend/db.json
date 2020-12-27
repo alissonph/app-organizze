@@ -55,111 +55,129 @@
   "entries": [
     {
       "id": 1,
-      "title": "1 de dezembro",
       "date": "01/12/2020",
-      "data": [
-        {
-          "id": 1,
-		  "icon": "television",
-          "name": "Cinema",
-          "origem": "Nuconta",
-          "value": -33.5,
-          "status": "pago"
-        },
-        {
-          "id": 2,
-		  "icon": "silverware-fork-knife",
-          "name": "Padaria",
-          "origem": "Porto Seguro",
-          "value": -35.5,
-          "status": "Fatura de dezembro"
-        },
-        {
-          "id": 3,
-		  "icon": "bus",
-          "name": "Carro",
-          "origem": "Azul",
-          "value": -223.3,
-          "status": "Fatura de janeiro"
-        }
-      ]
+      "icon": "television",
+      "description": "Cinema",
+      "account": "Nuconta",
+      "value": -33.5,
+      "status": "pago"
     },
     {
       "id": 2,
-      "title": "8 de dezembro",
-      "date": "08/12/2020",
-      "data": [
-        {
-          "id": 4,
-		  "icon": "silverware-fork-knife",
-          "name": "Baguete",
-          "origem": "Nuconta",
-          "value": -22,
-          "status": "pago"
-        },
-        {
-          "id": 5,
-		  "icon": "silverware-fork-knife",
-          "name": "Pizza",
-          "origem": "Bradesco",
-          "value": -58.6,
-          "status": "pago"
-        },
-        {
-          "id": 6,
-		  "icon": "bus",
-          "name": "Etanol",
-          "origem": "Porto Seguro",
-          "value": -100,
-          "status": "Fatura de janeiro"
-        }
-      ]
+      "date": "01/12/2020",
+      "icon": "silverware-fork-knife",
+      "description": "Padaria",
+      "account": "Porto Seguro",
+      "value": -35.5,
+      "status": "Fatura de dezembro"
     },
     {
       "id": 3,
-      "title": "12 de dezembro",
-      "date": "12/12/2020",
-      "data": [
-        {
-          "id": 7,
-		  "icon": "silverware-fork-knife",
-          "name": "Carne",
-          "origem": "Nuconta",
-          "value": -20,
-          "status": "pago"
-        },
-        {
-          "id": 8,
-		  "icon": "airplane",
-          "name": "Viagem Maceió",
-          "origem": "Azul",
-          "value": -1725.00,
-          "status": "Fatura de dezembro"
-        },
-        {
-          "id": 9,
-		  "icon": "bus",
-          "name": "Etanol",
-          "origem": "Nuconta",
-          "value": -210,
-          "status": "pago"
-        }
-      ]
+      "date": "01/12/2020",
+      "icon": "bus",
+      "description": "Carro",
+      "account": "Azul",
+      "value": -223.3,
+      "status": "Fatura de janeiro"
     },
     {
       "id": 4,
-      "title": "20 de dezembro",
+      "date": "08/12/2020",
+      "icon": "silverware-fork-knife",
+      "description": "Baguete",
+      "account": "Nuconta",
+      "value": -22,
+      "status": "pago"
+    },
+    {
+      "id": 5,
+      "date": "08/12/2020",
+      "icon": "silverware-fork-knife",
+      "description": "Pizza",
+      "account": "Bradesco",
+      "value": -58.6,
+      "status": "pago"
+    },
+    {
+      "id": 6,
+      "date": "08/12/2020",
+      "icon": "bus",
+      "description": "Etanol",
+      "account": "Porto Seguro",
+      "value": -100,
+      "status": "Fatura de janeiro"
+    },
+    {
+      "id": 7,
+      "date": "12/12/2020",
+      "icon": "silverware-fork-knife",
+      "description": "Carne",
+      "account": "Nuconta",
+      "value": -20,
+      "status": "pago"
+    },
+    {
+      "id": 8,
+      "date": "12/12/2020",
+      "icon": "airplane",
+      "description": "Viagem Maceió",
+      "account": "Azul",
+      "value": -1725,
+      "status": "Fatura de dezembro"
+    },
+    {
+      "id": 9,
+      "date": "12/12/2020",
+      "icon": "bus",
+      "description": "Etanol",
+      "account": "Nuconta",
+      "value": -210,
+      "status": "pago"
+    },
+    {
+      "id": 10,
       "date": "20/12/2020",
-      "data": [
-        {
-          "id": 10,
-		  "icon": "silverware-fork-knife",
-          "name": "Mercado",
-          "origem": "Nuconta",
-          "value": -22,
-          "status": "pago"
-        }
-      ]
+      "icon": "silverware-fork-knife",
+      "description": "Mercado",
+      "account": "Nuconta",
+      "value": -22,
+      "status": "pago"
+    },
+    {
+      "date": "27/12/2020",
+      "icon": "silverware-fork-knife",
+      "description": "teste alisson",
+      "account": "Nuconta",
+      "value": -22,
+      "status": "pago",
+      "id": 11
+    },
+    {
+      "date": "27/12/2020",
+      "icon": "silverware-fork-knife",
+      "description": "teste",
+      "account": "Easyinvest",
+      "value": -22,
+      "status": "pago",
+      "id": 12
+    },
+    {
+      "date": "30/12/2020",
+      "icon": "silverware-fork-knife",
+      "description": "teste",
+      "account": "Bradesco",
+      "value": -22,
+      "status": "pago",
+      "id": 13
+    },
+    {
+      "date": "28/12/2020",
+      "icon": "silverware-fork-knife",
+      "description": "Teste 3",
+      "account": "Easyinvest",
+      "value": -22,
+      "status": "pago",
+      "id": 14
     }
   ],
   "months": [
@@ -193,93 +211,93 @@
     }
   ],
   "category": [
-	{
-		"id": 1,
-		"description": "Alimentação"
-	},
-	{
-		"id": 2,
-		"description": "Assinaturas e serviços"
-	},
-	{
-		"id": 3,
-		"description": "Bares e restaurantes"
-	},
-	{
-		"id": 4,
-		"description": "Casa"
-	},
-	{
-		"id": 5,
-		"description": "Compras"
-	},
-	{
-		"id": 6,
-		"description": "Cuidados Pessoais"
-	},
-	{
-		"id": 7,
-		"description": "Dívidas e empréstimos"
-	},
-	{
-		"id": 8,
-		"description": "Educação"
-	},
-	{
-		"id": 9,
-		"description": "Família e filhos"
-	},
-	{
-		"id": 10,
-		"description": "Impostos e taxas"
-	},
-	{
-		"id": 11,
-		"description": "Investimentos"
-	},
-	{
-		"id": 12,
-		"description": "Lazer e hobbies"
-	},
-	{
-		"id": 13,
-		"description": "Jogos"
-	},
-	{
-		"id": 14,
-		"description": "Mercado"
-	},
-	{
-		"id": 15,
-		"description": "Outros"
-	},
-	{
-		"id": 16,
-		"description": "Pets"
-	},
-	{
-		"id": 17,
-		"description": "Presentes e doações"
-	},
-	{
-		"id": 18,
-		"description": "Roupas"
-	},
-	{
-		"id": 19,
-		"description": "Saúde"
-	},
-	{
-		"id": 20,
-		"description": "Trabalho"
-	},
-	{
-		"id": 21,
-		"description": "Transporte"
-	},
-	{
-		"id": 22,
-		"description": "Viagem"
-	}
+    {
+      "id": 1,
+      "description": "Alimentação"
+    },
+    {
+      "id": 2,
+      "description": "Assinaturas e serviços"
+    },
+    {
+      "id": 3,
+      "description": "Bares e restaurantes"
+    },
+    {
+      "id": 4,
+      "description": "Casa"
+    },
+    {
+      "id": 5,
+      "description": "Compras"
+    },
+    {
+      "id": 6,
+      "description": "Cuidados Pessoais"
+    },
+    {
+      "id": 7,
+      "description": "Dívidas e empréstimos"
+    },
+    {
+      "id": 8,
+      "description": "Educação"
+    },
+    {
+      "id": 9,
+      "description": "Família e filhos"
+    },
+    {
+      "id": 10,
+      "description": "Impostos e taxas"
+    },
+    {
+      "id": 11,
+      "description": "Investimentos"
+    },
+    {
+      "id": 12,
+      "description": "Lazer e hobbies"
+    },
+    {
+      "id": 13,
+      "description": "Jogos"
+    },
+    {
+      "id": 14,
+      "description": "Mercado"
+    },
+    {
+      "id": 15,
+      "description": "Outros"
+    },
+    {
+      "id": 16,
+      "description": "Pets"
+    },
+    {
+      "id": 17,
+      "description": "Presentes e doações"
+    },
+    {
+      "id": 18,
+      "description": "Roupas"
+    },
+    {
+      "id": 19,
+      "description": "Saúde"
+    },
+    {
+      "id": 20,
+      "description": "Trabalho"
+    },
+    {
+      "id": 21,
+      "description": "Transporte"
+    },
+    {
+      "id": 22,
+      "description": "Viagem"
+    }
   ]
 }

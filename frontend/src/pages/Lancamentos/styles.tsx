@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
       color: '#000',
       fontSize: 14,
     },
-    entryOrigem: {
+    entryAccount: {
       color: '#999',
       fontSize: 12,
     },

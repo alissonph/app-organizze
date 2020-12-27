@@ -20,15 +20,13 @@ export default function ResumoCartoes({loadingCards, cards}) {
 
             {loadingCards && <ActivityIndicator size="large" color="#a2faca"/> }
 
-            {!loadingCards &&
-                <View style={styles.list}>
-                    {
-                        cards.map((item) => {
-                            return <ResumoCartao key={item.id} data={item} />
-                        })
-                    }
-                </View>
-            }
+            <View style={styles.list}>
+                {
+                    cards.map((item) => {
+                        return <ResumoCartao key={item.id} data={item} />
+                    })
+                }
+            </View>
         </View>
     );
 }

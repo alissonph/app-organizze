@@ -21,15 +21,14 @@ export default function ResumoContas({loadingAccounts, accounts}) {
 
             {loadingAccounts && <ActivityIndicator size="large" color="#a2faca"/> }
 
-            {!loadingAccounts && 
-                <View style={styles.list}>
-                    {
-                        accounts.map((item) => {
-                            return <ResumoConta key={item.id} data={item} isBalanceHidden={isBalanceHidden} />
-                        })
-                    }
-                </View>
-            }
+            <View style={styles.list}>
+                {
+                    accounts.map((item) => {
+                        return <ResumoConta key={item.id} data={item} isBalanceHidden={isBalanceHidden} />
+                    })
+                }
+            </View>
+            
             {!loadingAccounts && accounts?.length > 0 &&
                 <TouchableOpacity style={styles.btnSaldo}>
                     <Text style={styles.textoSaldo}>Ajustar Saldo</Text>

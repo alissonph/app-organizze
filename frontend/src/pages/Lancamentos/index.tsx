@@ -33,10 +33,30 @@ export default function Lancamentos({ route, navigation }) {
     setLoadingEntries(true);
 
     try {
-        let response = await api.get('/entries');
-        if(response){
-          setEntries(response.data);
+      const response = await api.get('/entries');
+      let groupedEntries:string[] = [];
+
+      if(response){
+
+        //Agrupa os itens apenas para utilizar API fake (JSON SERVER)
+        for(var i=0;i<response.data.length;i++){
+          var indice = -1;
+          for(var j=0;j<groupedEntries.length;j++){
+            if(groupedEntries[j]?.date == response.data[i].date){
+              indice = j;
+              break;
+            }
+          }
+          if(indice == -1){
+            groupedEntries.push({date: response.data[i].date, data: []});
+            indice = groupedEntries.length-1;
+          }
+          
+          groupedEntries[indice]?.data.push(response.data[i]);
         }
+
+        setEntries(groupedEntries);
+      }
     } catch (error) {
         console.log("Erro:",error);
     }
@@ -99,8 +119,8 @@ export default function Lancamentos({ route, navigation }) {
                     <Icon name={item.icon} size={16} color="#FFF"/>
                   </View>
                   <View>
-                    <Text style={styles.entryTitle}>{item.name}</Text>
-                    <Text style={styles.entryOrigem}>{item.origem}</Text>
+                    <Text style={styles.entryTitle}>{item.description}</Text>
+                    <Text style={styles.entryAccount}>{item.account}</Text>
                   </View>
                 </View>
                 <View style={styles.entryValueContainer}>
@@ -109,8 +129,8 @@ export default function Lancamentos({ route, navigation }) {
                 </View>
               </View>
             )}
-            renderSectionHeader={({ section: { title } }) => (
-              <Text style={styles.entrySectionTitle}>{title}</Text>
+            renderSectionHeader={({ section: { date } }) => (
+              <Text style={styles.entrySectionTitle}>{date}</Text>
             )}
             ItemSeparatorComponent={
               () => (<View style={styles.separator} />)

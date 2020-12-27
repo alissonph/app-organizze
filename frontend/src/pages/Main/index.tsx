@@ -18,7 +18,7 @@ const wait = timeout => {
   });
 };
 
-export default function Main({ navigation }) {
+export default function Main({ navigation }: any) {
   const { account, card } = useSelector((store) => store);
   const dispatch = useDispatch();
 
@@ -28,9 +28,9 @@ export default function Main({ navigation }) {
   const [accounts, setAccounts] = useState([]);
   const [cards, setCards] = useState([]);
 
-  const loadAccounts = async () => {
+  const loadAccounts = () => {
     setLoadingAccounts(true);
-    await dispatch(getAccounts());
+    dispatch(getAccounts());
     setLoadingAccounts(false);
   }
 
@@ -42,9 +42,9 @@ export default function Main({ navigation }) {
     }
   }, [account])
 
-  const loadCards = async () => {
+  const loadCards = () => {
     setLoadingCards(true);
-    await dispatch(getCards());
+    dispatch(getCards());
     setLoadingCards(false);
   }
 
@@ -62,8 +62,8 @@ export default function Main({ navigation }) {
   },[]);
 
   useEffect(() => {
-    var date = new Date();
-    var currentHour = date.getHours();
+    const date = new Date();
+    const currentHour = date.getHours();
 
     if(currentHour < 12) {
       setWelcomeMessage("Bom dia");
