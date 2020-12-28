@@ -24,18 +24,23 @@ export const styles = StyleSheet.create({
       backgroundColor: '#FFF',
     },
     containerValue: {
-      height: 90,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
       paddingHorizontal: 20,
     },
     inputValue: {
       alignSelf: 'flex-end',
       fontSize: 30,
-      color: "#FFF"
+      color: '#FFF',
+      fontWeight: 'bold',
+      paddingRight: 10,
     },
     containerOptions: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       paddingVertical: 15,
+      paddingHorizontal: 20,
     },
     textOption: {
       color: '#FFF',

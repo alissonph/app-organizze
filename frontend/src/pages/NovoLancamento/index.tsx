@@ -33,6 +33,7 @@ export default function NovoLancamento({ navigation }) {
     description: '',
     category: '',
     account: '',
+    status: '',
     date: new Date(),
   })
 
@@ -40,12 +41,13 @@ export default function NovoLancamento({ navigation }) {
     if(validateEntry()){
       setSaving(true);
       await dispatch(await addEntry({
+        type: newEntry.type,
         date: Moment(newEntry.date).format("DD/MM/YYYY"),
         icon: "silverware-fork-knife",
         description: newEntry.description,
         account: newEntry.account,
-        value: -22,
-        status: "pago"
+        value: newEntry.value,
+        status: newEntry.status
       }));
       setSaving(false)
     }
@@ -56,9 +58,9 @@ export default function NovoLancamento({ navigation }) {
       showToast(entry?.errorMessage.toString());
     }else if(entry?.success){
       dispatch({type: RESET_ENTRY});
+      showToast("Lançamento incluído com sucesso!");
       navigation.navigate('MainTabs');
     }
-    console.log(entry)
   }, [entry])
 
   const validateEntry = () => {
@@ -143,7 +145,10 @@ export default function NovoLancamento({ navigation }) {
       </View>   
       <View style={styles.containerContent}>
         <View style={{ backgroundColor: (newEntry.type == "Despesa" ? 'red' : (newEntry.type == "Receita" ? '#34eb86' : '#999')), ...styles.containerValue}}>
-          <TextInputMask type="money" 
+          <TextInputMask 
+            type="money"
+            style={styles.inputValue}
+            keyboardType="numeric"
             value={newEntry.value}
             options={{
               precision: 2,
@@ -151,12 +156,17 @@ export default function NovoLancamento({ navigation }) {
               delimiter: '.',
               unit: 'R$ ',
             }}
-            onChangeText={text => {
-              setNewEntry({ ...newEntry, value: text});
-              //console.log(text);
+            includeRawValueInChangeText
+            onChangeText={(maskedText, rawText) => {
+              setNewEntry({ ...newEntry, value: rawText});
             }}
-          style={styles.inputValue} keyboardType="numeric" />
-          <View style={styles.containerOptions}>
+          />
+          <TouchableOpacity onPress={() => setNewEntry({...newEntry, status: newEntry.status == 'pago' ? 'pendente' : 'pago'})} hitSlop={{top: 10, left: 5, bottom: 10, right: 10}}>
+            <Icon name={newEntry.status == 'pago' ? 'thumb-up' : 'thumb-down'}size={25} color="#FFF"></Icon>
+          </TouchableOpacity>
+          
+        </View>
+          <View style={{ backgroundColor: (newEntry.type == "Despesa" ? 'red' : (newEntry.type == "Receita" ? '#34eb86' : '#999')), ...styles.containerOptions}}>
             <TouchableOpacity onPress={() => setNewEntry({...newEntry, type:"Despesa"})} hitSlop={{top: 10, left: 10, bottom: 10, right: 10}}>
               <Text style={{fontWeight: newEntry.type == 'Despesa' ? 'bold' : 'normal', ...styles.textOption}}>Despesa</Text>
             </TouchableOpacity>
@@ -167,7 +177,6 @@ export default function NovoLancamento({ navigation }) {
               <Text style={{fontWeight: newEntry.type == 'Transferencia' ? 'bold' : 'normal', ...styles.textOption}}>Transferência</Text>
             </TouchableOpacity>
           </View>
-        </View>
 
         <View>
           <View style={styles.containerOption}>

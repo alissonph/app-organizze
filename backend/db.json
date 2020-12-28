@@ -56,128 +56,172 @@
     {
       "id": 1,
       "date": "01/12/2020",
+      "type": "Despesa",
       "icon": "television",
       "description": "Cinema",
       "account": "Nuconta",
-      "value": -33.5,
+      "value": 33.5,
       "status": "pago"
     },
     {
       "id": 2,
       "date": "01/12/2020",
+      "type": "Despesa",
       "icon": "silverware-fork-knife",
       "description": "Padaria",
       "account": "Porto Seguro",
-      "value": -35.5,
+      "value": 35.5,
       "status": "Fatura de dezembro"
     },
     {
       "id": 3,
       "date": "01/12/2020",
+      "type": "Despesa",
       "icon": "bus",
       "description": "Carro",
       "account": "Azul",
-      "value": -223.3,
+      "value": 223.3,
       "status": "Fatura de janeiro"
     },
     {
       "id": 4,
       "date": "08/12/2020",
+      "type": "Despesa",
       "icon": "silverware-fork-knife",
       "description": "Baguete",
       "account": "Nuconta",
-      "value": -22,
+      "value": 22,
       "status": "pago"
     },
     {
       "id": 5,
       "date": "08/12/2020",
+      "type": "Despesa",
       "icon": "silverware-fork-knife",
       "description": "Pizza",
       "account": "Bradesco",
-      "value": -58.6,
+      "value": 58.6,
       "status": "pago"
     },
     {
       "id": 6,
       "date": "08/12/2020",
+      "type": "Despesa",
       "icon": "bus",
       "description": "Etanol",
       "account": "Porto Seguro",
-      "value": -100,
+      "value": 100,
       "status": "Fatura de janeiro"
     },
     {
       "id": 7,
       "date": "12/12/2020",
+      "type": "Despesa",
       "icon": "silverware-fork-knife",
       "description": "Carne",
       "account": "Nuconta",
-      "value": -20,
+      "value": 20,
       "status": "pago"
     },
     {
       "id": 8,
       "date": "12/12/2020",
+      "type": "Despesa",
       "icon": "airplane",
       "description": "Viagem Maceió",
       "account": "Azul",
-      "value": -1725,
+      "value": 1725,
       "status": "Fatura de dezembro"
     },
     {
       "id": 9,
       "date": "12/12/2020",
+      "type": "Despesa",
       "icon": "bus",
       "description": "Etanol",
       "account": "Nuconta",
-      "value": -210,
+      "value": 210,
       "status": "pago"
     },
     {
       "id": 10,
       "date": "20/12/2020",
+      "type": "Despesa",
       "icon": "silverware-fork-knife",
       "description": "Mercado",
       "account": "Nuconta",
-      "value": -22,
+      "value": 22,
       "status": "pago"
     },
     {
       "date": "27/12/2020",
+      "type": "Despesa",
       "icon": "silverware-fork-knife",
       "description": "teste alisson",
       "account": "Nuconta",
-      "value": -22,
+      "value": 22,
       "status": "pago",
       "id": 11
     },
     {
-      "date": "27/12/2020",
+      "date": "28/12/2020",
+      "type": "Despesa",
       "icon": "silverware-fork-knife",
-      "description": "teste",
-      "account": "Easyinvest",
-      "value": -22,
+      "description": "Comida",
+      "account": "Bradesco",
+      "value": 25.9,
       "status": "pago",
-      "id": 12
+      "id": 15
     },
     {
-      "date": "30/12/2020",
+      "date": "31/12/2020",
+      "type": "Despesa",
       "icon": "silverware-fork-knife",
-      "description": "teste",
-      "account": "Bradesco",
-      "value": -22,
+      "description": "Alisson",
+      "account": "Nuconta",
+      "value": 600,
       "status": "pago",
-      "id": 13
+      "id": 16
     },
     {
       "date": "28/12/2020",
+      "type": "Despesa",
       "icon": "silverware-fork-knife",
-      "description": "Teste 3",
+      "description": "Teste",
       "account": "Easyinvest",
-      "value": -22,
+      "value": 25,
       "status": "pago",
-      "id": 14
+      "id": 17
+    },
+    {
+      "date": "01/01/2021",
+      "type": "Despesa",
+      "icon": "silverware-fork-knife",
+      "description": "Teste",
+      "account": "Itaú",
+      "value": 25,
+      "status": "pago",
+      "id": 18
+    },
+    {
+      "date": "28/12/2020",
+      "type": "Despesa",
+      "icon": "silverware-fork-knife",
+      "description": "teste nao pago",
+      "account": "Itaú",
+      "value": 25,
+      "status": "pendente",
+      "id": 19
+    },
+    {
+      "type": "Receita",
+      "date": "28/12/2020",
+      "icon": "bank",
+      "description": "Salário",
+      "account": "Nuconta",
+      "value": 15000,
+      "status": "pago",
+      "id": 20
     }
   ],
   "months": [

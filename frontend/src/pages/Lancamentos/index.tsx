@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, RefreshControl, SafeAreaView, SectionList, Text, View } from 'react-native';
+import { ActivityIndicator, RefreshControl, SafeAreaView, SectionList, Text, View, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from './styles';
-import { floatToMoney } from '../../Utils';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { floatToMoney, showToast } from '../../Utils';
+import { FlatList  } from 'react-native-gesture-handler';
 import api from '../../services/api';
 import { useFocusEffect } from '@react-navigation/native';
+import { useActionSheet } from '@expo/react-native-action-sheet'
 
 export default function Lancamentos({ route, navigation }) {
+  const { showActionSheetWithOptions } = useActionSheet();
   //const [ conta, setConta ] = useState({});
   const [ loadingMonths, setLoadingMonths ] = useState(false);
   const [ loadingEntries, setLoadingEntries ] = useState(false);
@@ -18,12 +20,12 @@ export default function Lancamentos({ route, navigation }) {
     setLoadingMonths(true);
 
     try {
-        let response = await api.get('/months');
-        if(response){
-            setMonths(response.data);
-        }
+      const response = await api.get('/months');
+      if(response){
+          setMonths(response.data);
+      }
     } catch (error) {
-        console.log("Erro:",error);
+      console.log("Erro:",error);
     }
 
     setLoadingMonths(false);
@@ -58,7 +60,7 @@ export default function Lancamentos({ route, navigation }) {
         setEntries(groupedEntries);
       }
     } catch (error) {
-        console.log("Erro:",error);
+      console.log("Erro:",error);
     }
 
     setLoadingEntries(false);
@@ -71,6 +73,54 @@ export default function Lancamentos({ route, navigation }) {
       loadEntries();
     }, [])
   );
+
+  const deleteEntry = async (id) => {
+    let response = null;
+    try {
+        response = await api.delete('/entries/'+id);
+    } catch (error) {
+      console.log("Erro:",error);
+    }
+    return response;
+  }
+
+  const showEntryOptions = useCallback((entry) => {
+    const options = ["Editar", "Excluir", "Cancelar"];
+    showActionSheetWithOptions(
+      {
+        options,
+        showSeparators: true
+      },
+      (option)=>{
+        if(option == 0){ //Editar
+          console.log("Editar")
+        }else if(option == 1){ //Excluir
+          console.log("Excluir")
+          Alert.alert(
+            "Confirmar Exclusão",
+            "Deseja excluir o lançamento?",
+            [
+              { text: "Não"},
+              { text: "Sim" , onPress: async () => {
+                  const response = await deleteEntry(entry.id)
+                  if(response){
+                    showToast("Lançamento excluído com sucesso");
+                    loadEntries();
+                  }else{
+                    showToast("Erro ao excluir o lançamento. Tente Novamente.")
+                  }
+                } 
+              }
+            ]
+          );
+          
+        }else if(option == 2){ //Cancelar
+          console.log("Cancelar")
+        }
+      }
+    )
+  },[])
+
 
   /*useEffect(() => {
     if(route?.params?.conta){
@@ -91,6 +141,8 @@ export default function Lancamentos({ route, navigation }) {
             <FlatList
               contentContainerStyle={styles.monthList}
               horizontal={true}
+              initialNumToRender={5}
+              //initialScrollIndex={2} //TODO - POSICIONAR NO MES CORRETO
               showsHorizontalScrollIndicator={false}
               data={months}
               keyExtractor={(item) => item.id.toString()}
@@ -113,21 +165,23 @@ export default function Lancamentos({ route, navigation }) {
             keyExtractor={(item) => item.id.toString()}
             refreshControl={<RefreshControl refreshing={loadingEntries} onRefresh={loadEntries} />}
             renderItem={({ item }) => (
-              <View style={styles.entryContainer}>
-                <View style={styles.entryTitleContainer}>
-                  <View style={styles.entryIcon}>
-                    <Icon name={item.icon} size={16} color="#FFF"/>
+              <TouchableOpacity onLongPress={() =>showEntryOptions(item)}>
+                <View style={styles.entryContainer}>
+                  <View style={styles.entryTitleContainer}>
+                    <View style={styles.entryIcon}>
+                      <Icon name={item.icon} size={16} color="#FFF"/>
+                    </View>
+                    <View>
+                      <Text style={styles.entryTitle}>{item.description}</Text>
+                      <Text style={styles.entryAccount}>{item.account}</Text>
+                    </View>
                   </View>
-                  <View>
-                    <Text style={styles.entryTitle}>{item.description}</Text>
-                    <Text style={styles.entryAccount}>{item.account}</Text>
+                  <View style={styles.entryValueContainer}>
+                    <Text style={styles.entryValue}>{(item.type == 'Despesa' ? '-' : '') + floatToMoney(item.value)}</Text>
+                    <Text  style={styles.entryStatus}>{item.status}</Text>
                   </View>
                 </View>
-                <View style={styles.entryValueContainer}>
-                  <Text style={styles.entryValue}>{floatToMoney(item.value)}</Text>
-                  <Text  style={styles.entryStatus}>{item.status}</Text>
-                </View>
-              </View>
+              </TouchableOpacity>
             )}
             renderSectionHeader={({ section: { date } }) => (
               <Text style={styles.entrySectionTitle}>{date}</Text>

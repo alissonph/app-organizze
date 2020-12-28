@@ -5,7 +5,7 @@ import { styles } from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
-export default function Config({ navigation }) {
+export default function Config({ navigation }:any) {
 
   const confirmLogout = () => {
     Alert.alert(
@@ -31,37 +31,37 @@ export default function Config({ navigation }) {
           <Text style={styles.titleOption}>Geral</Text>
           <TouchableOpacity style={styles.option}>
             <Text>Tema</Text>
-            <Text>Claro ></Text>
+            <Text>Claro {'>'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option}>
             <Text>Pais</Text>
-            <Text>Brasil ></Text>
+            <Text>Brasil {'>'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option}>
             <Text>Idioma</Text>
-            <Text>Português ></Text>
+            <Text>Português {'>'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option}>
             <Text>Moeda</Text>
-            <Text>BRL ></Text>
+            <Text>BRL {'>'}</Text>
           </TouchableOpacity>
           <Text style={styles.titleOption}>Alertas e Notificações</Text>
           <TouchableOpacity style={styles.option}>
             <Text>Alertas</Text>
-            <Text>></Text>
+            <Text>{'>'}</Text>
           </TouchableOpacity>
           <Text style={styles.titleOption}>Outras Opções</Text>
           <TouchableOpacity style={styles.option}>
             <Text>Excluir todas as minhas movimentações</Text>
-            <Text>></Text>
+            <Text>{'>'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option}>
             <Text>Gerenciar assinaturas</Text>
-            <Text>></Text>
+            <Text>{'>'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option}>
             <Text>Avalie</Text>
-            <Text>></Text>
+            <Text>{'>'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={confirmLogout}>
             <Text>Sair</Text>
